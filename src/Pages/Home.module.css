@@ -1,0 +1,154 @@
+.nav{
+    display: flex;
+    width: 100%;
+    height: 74px;
+    background-color: rgb(255, 255, 255);
+    border-bottom: 2px solid rgb(0, 0, 0, 0.06);
+}
+ 
+.content{
+    display: flex;
+    width: 1200px;
+    height: 72px;
+    background-color: rgb(255, 255, 255);
+    margin: 0px auto;
+    padding: 16px 20px;
+    align-items: center;
+    justify-content: space-between;
+ 
+}
+ 
+.title{
+    font-size: 1.25rem;
+}
+ 
+.mode{
+    padding: 8px;
+    display: flex;
+    align-items: center;
+}
+ 
+.mode_button{
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    margin-left: 3px;
+    color: rgb(17, 21, 23);
+    fill: rgb(17, 21 ,23);
+    font-size: 1em;
+ 
+}
+ 
+.icon{
+    display: flex;
+    cursor: pointer;
+    font-size: 1.50em;
+}
+ 
+ 
+ 
+.search_section{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0px auto;
+    padding: 40px 20px;
+    width: 1200px;
+    height: 129px;
+ 
+}
+ 
+.search{
+    outline: none;
+    border: none;
+    width: 440px;
+    height: 49px;
+    padding: 10px 10px 10px 40px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.13) 0px 2px 12px;
+}
+ 
+.search_select{
+    outline: none;
+    border: none;
+    padding: 10px 10px 10px 30px;
+    width: 169px;
+    height: 49px;
+    border-radius: 5px;
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.13) 0px 2px 12px;
+}
+ 
+.search_icon{
+    position: absolute;
+    padding: 10px 5px 5px 10px;
+    font-size: 20px;
+}
+
+.countries_section{
+    max-width: 1200px;
+    display:grid;
+    margin: 0px auto;
+    padding:20px;
+    gap: 48px;
+    grid-template-columns: repeat(4, 1fr);
+
+
+}
+
+.countries_section *{
+    background-color: rgb(255, 255, 255);
+    color: rgb(17, 21 ,23);
+}
+
+a{
+    text-decoration: none;
+}
+
+.countries_section a p{
+    margin: 4px 0px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.countries_section span{
+    font-weight: 300;
+}
+
+.countries_section a{
+    box-shadow: rgb(0, 0, 0, 0.07) 0px 2px 12px; 
+    border-radius: 4px;
+    cursor: pointer;
+    overflow: hidden;
+    transform: scale(0.9);
+}
+
+.countries_section a:hover{
+    transform: scale(1.1);
+}
+
+.countries_section  a div:first-child{
+    height: 160px;
+    overflow: hidden;
+}
+
+.countries_section a div:first-child img{
+    min-width: 100%;
+    height: 100%;
+    object-fit: cover
+} 
+
+.countries_section a div:last-child {
+    padding: 16px;
+}
+
+
+.flag_img{
+    height: 100%;
+    display: block;
+}
+
+.countries_section a h2{
+    margin-bottom: 16px;
+    font-size: 1.125rem;
+}
