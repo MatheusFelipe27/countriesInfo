@@ -1,46 +1,59 @@
 import styles from "./Home.module.css";
- 
-import { IoIosMoon, IoIosSunny} from "react-icons/io";
-import {AiOutlineSearch} from "react-icons/ai";
+
+import { IoIosMoon, IoIosSunny } from "react-icons/io";
+import { AiOutlineSearch } from "react-icons/ai";
 import { useEffect, useState } from "react";
- 
+
 import axios from "axios";
- 
+
 const Home = () => {
   const [mode, setMode] = useState(false);
   const [data, setData] = useState([]);
-  const [region, setRegion] = useState("");
- 
-  useEffect(()=>{
-    axios({
-      method: 'get',
-      url: `https://restcountries.com/v3.1/all`
-    })
-    .then((res)=>{
-      console.log(res);
-      setData(res.data);
-    })
-    .catch((error) =>{
-      console.error(error);
-    })
- 
-  }, [])
- 
-  useEffect(()=>{
-    axios({
-      method: 'get',
-      url : `https://restcountries.com/v3.1/region/${region}`
-    })
-    .then((res) =>{
-      console.log(res);
-      setRegion(res.data);
-    })
-    .catch((error) =>{
-      console.error(error);
-    })
-  }, [])
+  const [search, setSearch] = useState("");
 
-  console.log(region)
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: `https://restcountries.com/v3.1/all`,
+    })
+      .then((res) => {
+        console.log(res);
+        setData(res.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  const changeData = (e) => {
+    if (e.target.value === "all") {
+      axios({
+        method: "get",
+        url: `https://restcountries.com/v3.1/all`,
+      })
+        .then((res) => {
+          console.log(res);
+          setData(res.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else {
+      axios({
+        method: "get",
+        url: `https://restcountries.com/v3.1/region/${e.target.value}`,
+      })
+        .then((res) => {
+          console.log(res);
+          setData(res.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  };
+
+
   return (
     <>
       <nav className={styles.nav}>
@@ -67,41 +80,78 @@ const Home = () => {
       </nav>
       <main>
         <section className={styles.search_section}>
-          <a className={styles.search_icon}> <AiOutlineSearch/></a>
-          <input className={styles.search} type='text' placeholder="Search for a country..." /> 
-          <select className={styles.search_select} onChange={(e)=> setRegion(e.target.value)}>
-            <option value="all" >Filter by Region</option>
-            <option value="africa" >Africa</option>
-            <option value="america">America</option>
-            <option value="asia">Asia</option>
-            <option value="europa">Europa</option>
-            <option value="oceania">Oceania</option>
+          <a className={styles.search_icon}>
+            <AiOutlineSearch />
+          </a>
+          <input
+            className={styles.search}
+            type="text"
+            placeholder="Search for a country..."
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <select
+            className={styles.search_select}
+            onChange={(e) => {
+              changeData(e);
+            }}
+          >
+            <option key={"all"} value="all">
+              Filter by Region
+            </option>
+            <option key={"africa"} value="africa">
+              Africa
+            </option>
+            <option key={"ame"} value="ame">
+              America
+            </option>
+            <option key={"asia"} value="asia">
+              Asia
+            </option>
+            <option key={"europe"} value="europe">
+              Europa
+            </option>
+            <option key={"oceania"} value="oceania">
+              Oceania
+            </option>
           </select>
         </section>
 
         <section className={styles.countries_section}>
-            {
-                data.map((val)=> (
-                    <a key={val.id}>
-                        <div> 
-                            <img className={styles.flag_img} src={val.flags.svg}/>
-                        </div>
-                        <div>
-                            <h2>{val.name.common}</h2>
-                            <p>Population: <span>{val.population}</span></p> 
-                            <p>Region: <span>{val.region}</span></p> 
-                            <p>Capital:  <span>{ val.capital? val.capital: 'Do not Have' }</span></p>
-
-                        </div>
-                    </a>
-                ))
-            }
-
+          {data
+            .filter((val) => {
+              if (search === "") return val;
+              else {
+                if (
+                  val.name.common.toLowerCase().includes(search.toLowerCase())
+                ) {
+                  return val;
+                }
+              }
+            })
+            .map((val) => (
+              <a key={val.id}>
+                <div>
+                  <img className={styles.flag_img} src={val.flags.svg} />
+                </div>
+                <div>
+                  <h2>{val.name.common}</h2>
+                  <p>
+                    Population: <span>{val.population}</span>
+                  </p>
+                  <p>
+                    Region: <span>{val.region}</span>
+                  </p>
+                  <p>
+                    Capital:
+                    <span>{val.capital ? val.capital : "Do not Have"}</span>
+                  </p>
+                </div>
+              </a>
+            ))}
         </section>
       </main>
-      
     </>
   );
 };
- 
+
 export default Home;
