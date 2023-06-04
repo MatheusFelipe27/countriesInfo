@@ -1,4 +1,4 @@
-import styles from "./Home.module.css";
+import styles from "./Home.module.scss";
 
 import { IoIosMoon, IoIosSunny } from "react-icons/io";
 import { AiOutlineSearch } from "react-icons/ai";
