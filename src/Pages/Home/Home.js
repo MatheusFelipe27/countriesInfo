@@ -1,15 +1,14 @@
 import styles from "./Home.module.scss";
-
-import { IoIosMoon, IoIosSunny } from "react-icons/io";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useEffect, useState } from "react";
+import {useNavigate, useParams} from "react-router-dom"
 
 import axios from "axios";
 
 const Home = () => {
-  const [mode, setMode] = useState(false);
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
+  const navigate = useNavigate()
 
   useEffect(() => {
     axios({
@@ -24,6 +23,7 @@ const Home = () => {
         console.error(error);
       });
   }, []);
+
 
   const changeData = (e) => {
     if (e.target.value === "all") {
@@ -53,31 +53,12 @@ const Home = () => {
     }
   };
 
+  const goToInfo = (val) =>{
+    navigate(`info/${val}`)
+  }
 
   return (
     <>
-      <nav className={styles.nav}>
-        <div className={styles.content}>
-          <h1 className={styles.title}> Where in the World?</h1>
-          <div className={styles.mode}>
-            {mode ? (
-              <a className={styles.icon} onClick={() => setMode(!mode)}>
-                <IoIosSunny />
-              </a>
-            ) : (
-              <a className={styles.icon} onClick={() => setMode(!mode)}>
-                <IoIosMoon />
-              </a>
-            )}
-            <button
-              onClick={() => setMode(!mode)}
-              className={styles.mode_button}
-            >
-              {mode ? "Light Mode" : "Dark Mode"}
-            </button>
-          </div>
-        </div>
-      </nav>
       <main>
         <section className={styles.search_section}>
           <a className={styles.search_icon}>
@@ -129,7 +110,7 @@ const Home = () => {
               }
             })
             .map((val) => (
-              <a key={val.id}>
+              <a key={val.cca2} onClick={()=>goToInfo(val.cca2)}>
                 <div>
                   <img className={styles.flag_img} src={val.flags.svg} />
                 </div>
